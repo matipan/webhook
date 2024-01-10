@@ -264,6 +264,10 @@ func main() {
 
 	hooksURL := makeRoutePattern(hooksURLPrefix)
 
+	r.HandleFunc("/reload", func(w http.ResponseWriter, _ *http.Request) {
+		reloadAllHooks()
+		fmt.Fprint(w, "OK")
+	})
 	r.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		for _, responseHeader := range responseHeaders {
 			w.Header().Set(responseHeader.Name, responseHeader.Value)
